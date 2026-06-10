@@ -273,6 +273,89 @@ body{font-family:var(--fn);background:var(--bg);color:var(--tx);min-height:100vh
 /* CHIPS */
 .chip{background:var(--sur);border:1px solid var(--bd);border-radius:var(--rs);padding:5px 12px;font-size:12px;color:var(--tx2);display:inline-flex;align-items:center;gap:6px}
 .chip strong{color:var(--tx);font-weight:700}
+
+/* ═══ MOBILE ≤768px ═══ */
+.mob{display:none}
+@media(max-width:768px){
+  .sb,.main{display:none!important}
+  .mob{display:flex;flex-direction:column;min-height:100vh;background:var(--bg)}
+  .m-top{background:var(--sb);padding:14px 16px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40}
+  .m-logo{width:30px;height:30px;background:var(--ac);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+  .m-title{font-size:14px;font-weight:700;color:#fff}.m-sub{font-size:10px;color:rgba(255,255,255,.5);margin-top:1px}
+  .m-drive-btn{font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);cursor:pointer;font-family:var(--fn);font-weight:500}
+  .m-drive-btn.connected{background:rgba(34,197,94,.2);border-color:rgba(34,197,94,.4);color:#4ade80}
+  .m-content{flex:1;overflow-y:auto;padding:14px 14px 84px}
+  .m-view{display:none}.m-view.active{display:block}
+  .m-nav{position:fixed;bottom:0;left:0;right:0;background:var(--sur);border-top:1px solid var(--bd);display:flex;z-index:40;padding-bottom:env(safe-area-inset-bottom)}
+  .m-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;cursor:pointer;border:none;background:none;font-family:var(--fn);-webkit-tap-highlight-color:transparent}
+  .m-ni{font-size:20px;margin-bottom:2px;transition:transform .15s}
+  .m-nl{font-size:9px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.04em}
+  .m-nav-item.active .m-nl{color:var(--ac)}.m-nav-item.active .m-ni{transform:scale(1.15)}
+  .m-alumni{background:var(--sb);margin:-14px -14px 14px;padding:12px 16px 14px}
+  .m-alumni-val{font-size:28px;font-weight:700;color:#fff;letter-spacing:-.02em}
+  .m-alumni-sub{font-size:11px;color:rgba(255,255,255,.5)}
+  .m-alumni-pct{font-size:13px;font-weight:700;color:var(--ac);background:rgba(79,110,247,.2);padding:3px 10px;border-radius:20px}
+  .m-alumni-bar{height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin:8px 0 10px}
+  .m-alumni-fill{height:100%;background:linear-gradient(90deg,var(--ac),var(--gr));border-radius:3px;transition:width .8s}
+  .m-alumni-btns{display:flex;gap:6px}
+  .m-alumni-btn{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--fn);-webkit-tap-highlight-color:transparent}
+  .m-alumni-btn:active{background:rgba(255,255,255,.2)}
+  .m-kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .m-kpi{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;position:relative;overflow:hidden;box-shadow:var(--sh)}
+  .m-kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r) var(--r) 0 0}
+  .m-kpi.ac::after{background:var(--ac)}.m-kpi.gr::after{background:var(--gr)}.m-kpi.am::after{background:var(--am)}.m-kpi.pu::after{background:var(--pu)}
+  .m-kpi-ic{font-size:18px;margin-bottom:4px}.m-kpi-val{font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.02em;line-height:1}
+  .m-kpi-lbl{font-size:10px;color:var(--tx2);margin-top:3px;font-weight:500}
+  .m-sec{font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin:14px 0 8px}
+  .m-panel{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:10px;overflow:hidden}
+  .m-panel-h{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--bd)}
+  .m-panel-t{font-size:13px;font-weight:700;color:var(--tx)}.m-panel-b{padding:12px 14px}
+  .m-qa{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid var(--bd)}
+  .m-qi{flex:1;padding:11px 12px;border-radius:var(--rs);border:1px solid var(--bd2);background:var(--sur2);color:var(--tx);font-family:var(--fn);font-size:15px;outline:none;-webkit-appearance:none}
+  .m-qi:focus{border-color:var(--ac)}
+  .m-trow{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-bottom:1px solid var(--bd)}
+  .m-trow:last-child{border-bottom:none}.m-trow.done{opacity:.4}
+  .m-tcb{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--bd2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent;transition:all .15s;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .m-tcb.chk{background:var(--gr);border-color:var(--gr);color:#fff}
+  .m-ttl{font-size:14px;font-weight:500;color:var(--tx);line-height:1.3}.m-ttl.st{text-decoration:line-through;color:var(--tx3)}
+  .m-tmeta{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
+  .m-rrow{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--bd)}
+  .m-rrow:last-child{border-bottom:none}.m-rrow.hi{background:var(--acl)}
+  .m-rday{font-size:10px;font-weight:700;color:var(--tx3);width:24px;flex-shrink:0;font-family:var(--mo);text-transform:uppercase}
+  .m-rrow.hi .m-rday{color:var(--ac)}.m-rnm{font-size:13px;font-weight:500;color:var(--tx)}.m-rrow.hi .m-rnm{color:var(--ac);font-weight:600}
+  .m-rds{font-size:11px;color:var(--tx3)}
+  .m-crow{display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid var(--bd)}
+  .m-crow:last-child{border-bottom:none}
+  .m-cav{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+  .m-cnm{font-size:13px;font-weight:600;color:var(--tx)}.m-cdt{font-size:11px;color:var(--tx3);margin-top:2px}
+  .m-leads{display:flex;flex-direction:column;gap:8px}
+  .m-lead-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;box-shadow:var(--sh)}
+  .m-lead-name{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:4px}
+  .m-lead-meta{font-size:11px;color:var(--tx3);margin-bottom:8px}
+  .m-status-btn{font-size:11px;font-weight:600;padding:5px 10px;border-radius:20px;border:none;cursor:pointer;font-family:var(--fn);-webkit-tap-highlight-color:transparent}
+  .m-fab{position:fixed;bottom:72px;right:16px;width:52px;height:52px;border-radius:50%;background:var(--ac);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 16px rgba(79,110,247,.4);display:flex;align-items:center;justify-content:center;z-index:30;transition:all .15s;-webkit-tap-highlight-color:transparent}
+  .m-fab:active{transform:scale(.93)}
+  .m-prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .m-pc{background:var(--sur);border:1px solid var(--bd);border-radius:var(--rs);padding:12px;box-shadow:var(--sh);display:flex;flex-direction:column;align-items:center;gap:5px}
+  .m-pc-ic{font-size:20px}.m-pc-val{font-size:24px;font-weight:700;color:var(--tx);font-family:var(--mo);line-height:1}
+  .m-pc-lbl{font-size:10px;color:var(--tx2);font-weight:500;text-align:center;line-height:1.3}
+  .m-pc-ctrls{display:flex;gap:4px;width:100%}
+  .m-pc-btn{flex:1;padding:7px;border-radius:5px;border:1px solid var(--bd2);background:var(--sur2);color:var(--tx);font-size:16px;font-weight:700;cursor:pointer;font-family:var(--fn);-webkit-tap-highlight-color:transparent}
+  .m-pc-btn:active{background:var(--sur3)}
+  .m-empty{text-align:center;padding:24px 16px;color:var(--tx3);font-size:13px;line-height:1.7}
+  .m-tag{font-size:10px;font-weight:600;padding:2px 6px;border-radius:5px}
+  .m-save-btn{width:100%;padding:14px;border-radius:var(--r);border:none;background:var(--ac);color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--fn);margin-top:12px;-webkit-tap-highlight-color:transparent}
+  .m-save-btn:active{opacity:.88}
+  .m-nta{width:100%;border:1px solid var(--bd2);border-radius:var(--rs);padding:10px;background:var(--sur2);color:var(--tx);font-family:var(--fn);font-size:14px;resize:none;outline:none;line-height:1.5;margin-top:6px}
+  .m-nta:focus{border-color:var(--ac)}.m-nta::placeholder{color:var(--tx3)}
+  .m-prog-bar{height:8px;background:var(--sur3);border-radius:4px;overflow:hidden;margin:8px 0}
+  .m-prog-fill{height:100%;background:var(--ac);border-radius:4px;transition:width .5s}
+  .m-fin-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);padding:14px;box-shadow:var(--sh);margin-bottom:10px}
+  .m-fin-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+  .m-fin-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:13px}
+  .m-fin-row:last-child{border-bottom:none;padding-top:10px;margin-top:4px}
+  .m-fin-result{font-size:20px;font-weight:700;font-family:var(--mo)}
+}
 </style>
 </head>
 <body>
@@ -370,7 +453,131 @@ body{font-family:var(--fn);background:var(--bg);color:var(--tx);min-height:100vh
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- SIDEBAR -->
+<!-- ══════════════════════════════════════
+     INTERFAZ MÓVIL
+══════════════════════════════════════ -->
+<div class="mob" id="mob">
+  <!-- Topbar móvil -->
+  <div class="m-top">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="m-logo">SK</div>
+      <div><div class="m-title">Skipping Kids</div><div class="m-sub" id="m-page-sub">Bienvenido, Javi 👋</div></div>
+    </div>
+    <button class="m-drive-btn" id="m-drive-btn" onclick="handleDriveBtn()">☁️ Drive</button>
+  </div>
+
+  <!-- Contenido -->
+  <div class="m-content">
+
+    <!-- INICIO -->
+    <div class="m-view active" id="mv-inicio">
+      <!-- Alumni tracker -->
+      <div class="m-alumni">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <div style="font-size:10px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em">Meta alumnos</div>
+          <div class="m-alumni-pct" id="m-at-pct">0%</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <div class="m-alumni-val" id="m-at-val">112</div>
+          <div class="m-alumni-sub">/ <span id="m-at-meta">150</span> objetivo sep</div>
+        </div>
+        <div class="m-alumni-bar"><div class="m-alumni-fill" id="m-at-fill" style="width:0%"></div></div>
+        <div class="m-alumni-btns">
+          <button class="m-alumni-btn" onclick="adjustAlumni(-1)">−1</button>
+          <button class="m-alumni-btn" onclick="adjustAlumni(1)">+1</button>
+          <button class="m-alumni-btn" onclick="adjustAlumni(5)">+5</button>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="m-kpi-grid" id="m-kpi-grid"></div>
+
+      <!-- Progreso tareas -->
+      <div class="m-panel">
+        <div class="m-panel-h"><div class="m-panel-t">Tareas de hoy</div><div id="m-prog-label" style="font-size:12px;color:var(--tx3)">0 / 0</div></div>
+        <div style="padding:0 14px 4px"><div class="m-prog-bar"><div class="m-prog-fill" id="m-prog-fill" style="width:0%"></div></div></div>
+        <div class="m-qa">
+          <input class="m-qi" id="m-qi" placeholder="Añadir tarea rápida..." maxlength="100">
+          <button style="padding:10px 14px;border-radius:var(--rs);border:none;background:var(--ac);color:#fff;font-size:16px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent" onclick="mAddQuick()">+</button>
+        </div>
+        <div id="m-task-list"></div>
+      </div>
+
+      <!-- Rutinas de hoy -->
+      <div class="m-panel">
+        <div class="m-panel-h"><div class="m-panel-t">Rutinas de hoy</div><div id="m-today-day" style="font-size:11px;color:var(--tx3)"></div></div>
+        <div id="m-routines-today"></div>
+      </div>
+    </div>
+
+    <!-- CONTACTOS -->
+    <div class="m-view" id="mv-contactos">
+      <div class="m-panel">
+        <div class="m-panel-h">
+          <div class="m-panel-t">Registrar contacto</div>
+        </div>
+        <div class="m-panel-b" style="display:flex;flex-direction:column;gap:8px">
+          <input style="width:100%;padding:10px;border-radius:var(--rs);border:1px solid var(--bd2);background:var(--sur2);color:var(--tx);font-family:var(--fn);font-size:14px;outline:none" id="m-cf-n" placeholder="Nombre / empresa">
+          <select style="width:100%;padding:10px;border-radius:var(--rs);border:1px solid var(--bd2);background:var(--sur2);color:var(--tx);font-family:var(--fn);font-size:14px;outline:none" id="m-cf-t">
+            <option value="llamada">📞 Llamada</option><option value="visita">🚶 Visita</option>
+            <option value="whatsapp">💬 WhatsApp</option><option value="email">✉️ Email</option><option value="reunion">🤝 Reunión</option>
+          </select>
+          <select style="width:100%;padding:10px;border-radius:var(--rs);border:1px solid var(--bd2);background:var(--sur2);color:var(--tx);font-family:var(--fn);font-size:14px;outline:none" id="m-cf-c">
+            <option value="alumnos">👨‍🎓 Alumno/familia</option><option value="lead">⭐ Lead nuevo</option>
+            <option value="staff">👩‍🏫 Staff</option><option value="proveedor">🏢 Proveedor</option><option value="otro">🔹 Otro</option>
+          </select>
+          <textarea class="m-nta" id="m-cf-no" rows="3" placeholder="¿De qué trató el contacto?"></textarea>
+          <button class="m-save-btn" onclick="mSaveContact()">✓ Guardar contacto</button>
+        </div>
+      </div>
+      <div class="m-sec">Contactos recientes</div>
+      <div class="m-panel"><div id="m-contact-list"></div></div>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="m-view" id="mv-pipeline">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div class="m-sec" style="margin:0">Pipeline de captación</div>
+        <button onclick="openMo('mo-lead')" style="padding:8px 14px;border-radius:var(--rs);border:none;background:var(--ac);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--fn)">+ Lead</button>
+      </div>
+      <div id="m-pipeline"></div>
+    </div>
+
+    <!-- PRODUCTIVIDAD -->
+    <div class="m-view" id="mv-prod">
+      <div class="m-sec">Captación y contactos</div>
+      <div class="m-prod-grid" id="m-prod-cap"></div>
+      <div class="m-sec">Gestión interna</div>
+      <div class="m-prod-grid" id="m-prod-ges"></div>
+      <div class="m-sec">Notas</div>
+      <div class="m-panel">
+        <div class="m-panel-b">
+          <div style="font-size:11px;font-weight:600;color:var(--tx2);margin-bottom:4px">📝 Notas del día</div>
+          <textarea class="m-nta" id="m-note-day" rows="3" placeholder="Incidencias, observaciones..."></textarea>
+          <div style="font-size:11px;font-weight:600;color:var(--tx2);margin:10px 0 4px">🎯 Objetivos de mañana</div>
+          <textarea class="m-nta" id="m-note-tom" rows="3" placeholder="¿Qué tienes que hacer sí o sí mañana?"></textarea>
+          <button class="m-save-btn" onclick="mSaveDay()">✓ Guardar día</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINANCIERO -->
+    <div class="m-view" id="mv-financiero">
+      <div class="m-sec">Escenarios financieros</div>
+      <div id="m-fin-cards"></div>
+    </div>
+
+  </div><!-- /m-content -->
+
+  <!-- Bottom nav -->
+  <nav class="m-nav">
+    <button class="m-nav-item active" onclick="mNav('inicio',this)"><div class="m-ni">⊞</div><div class="m-nl">Inicio</div></button>
+    <button class="m-nav-item" onclick="mNav('contactos',this)"><div class="m-ni">📋</div><div class="m-nl">Contactos</div></button>
+    <button class="m-nav-item" onclick="mNav('pipeline',this)"><div class="m-ni">◈</div><div class="m-nl">Pipeline</div></button>
+    <button class="m-nav-item" onclick="mNav('prod',this)"><div class="m-ni">◉</div><div class="m-nl">Actividad</div></button>
+    <button class="m-nav-item" onclick="mNav('financiero',this)"><div class="m-ni">💶</div><div class="m-nl">Finanzas</div></button>
+  </nav>
+</div><!-- /mob -->
 <nav class="sb">
   <div class="sb-logo">
     <div class="lm">SK</div>
@@ -1565,6 +1772,7 @@ function updateDriveBtn(){
     btn.textContent='☁️ Conectar Drive';
     btn.style.background='';btn.style.color='';btn.style.borderColor='';
   }
+  mUpdateDriveBtn();
 }
 
 // Construir objeto con todos los datos del dashboard
@@ -1675,6 +1883,208 @@ const driveInitInterval=setInterval(()=>{
 },400);
 setTimeout(()=>clearInterval(driveInitInterval),10000);
 
+// ═══════════════════════════════════════════════
+// MOBILE INTERFACE LOGIC
+// ═══════════════════════════════════════════════
+const PMAP_MOB={p1:['tp1','🔴']  ,p2:['tp2','🟡'],p3:['tp3','🟢']};
+const CONTACT_COLORS_MOB={llamada:'#4f6ef7',visita:'#22c55e',whatsapp:'#f59e0b',email:'#06b6d4',reunion:'#8b5cf6'};
+const CONTACT_ICONS_MOB={llamada:'📞',visita:'🚶',whatsapp:'💬',email:'✉️',reunion:'🤝'};
+const KANBAN_COLORS={interesado:'#9ea4be',contactado:'#4f6ef7',visita:'#f59e0b',matriculado:'#22c55e',perdido:'#ef4444'};
+const KANBAN_BGS={interesado:'#f0f2f7',contactado:'#eef1fe',visita:'#fffbeb',matriculado:'#f0fdf4',perdido:'#fff1f2'};
+
+function mNav(id, btn){
+  document.querySelectorAll('.m-view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.m-nav-item').forEach(b=>b.classList.remove('active'));
+  const v=document.getElementById('mv-'+id);if(v)v.classList.add('active');
+  if(btn)btn.classList.add('active');
+  const subs={inicio:'Bienvenido, Javi 👋',contactos:'Registro de hoy',pipeline:'Seguimiento de leads',prod:'Actividad diaria',financiero:'Proyecciones'};
+  const sub=document.getElementById('m-page-sub');if(sub)sub.textContent=subs[id]||'';
+  if(id==='inicio')mRenderInicio();
+  if(id==='contactos')mRenderContactos();
+  if(id==='pipeline')mRenderPipeline();
+  if(id==='prod')mRenderProd();
+  if(id==='financiero')mRenderFinanciero();
+}
+
+function mRenderAll(){
+  mRenderAlumni();
+  mRenderKPI();
+  mRenderInicio();
+  mRenderProd();
+  mUpdateDriveBtn();
+}
+
+function mRenderAlumni(){
+  const pct=Math.round(alumni/alumniMeta*100);
+  const els={
+    'm-at-val':alumni,'m-at-meta':alumniMeta,
+    'm-at-pct':pct+'%'
+  };
+  Object.entries(els).forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.textContent=v;});
+  const f=document.getElementById('m-at-fill');if(f)f.style.width=Math.min(100,pct)+'%';
+}
+
+function mRenderKPI(){
+  const tod=tasks.filter(t=>t.date===TODAY);
+  const done=tod.filter(t=>t.done).length;
+  const kpis=[
+    {l:'Alumnos',v:alumni,i:'👨‍🎓',c:'ac'},
+    {l:'Tareas hechas',v:done,i:'✅',c:'gr'},
+    {l:'Nuevos leads',v:leads.filter(l=>l.date===TODAY).length,i:'⭐',c:'am'},
+    {l:'Contactos hoy',v:contacts.filter(c=>c.date===TODAY).length,i:'📋',c:'pu'},
+  ];
+  const g=document.getElementById('m-kpi-grid');if(!g)return;
+  g.innerHTML=kpis.map(k=>`<div class="m-kpi ${k.c}"><div class="m-kpi-ic">${k.i}</div><div class="m-kpi-val">${k.v}</div><div class="m-kpi-lbl">${k.l}</div></div>`).join('');
+}
+
+function mRenderInicio(){
+  mRenderAlumni();mRenderKPI();
+  const tod=tasks.filter(t=>t.date===TODAY);
+  const done=tod.filter(t=>t.done).length;
+  const pct=tod.length?Math.round(done/tod.length*100):0;
+  const pf=document.getElementById('m-prog-fill');if(pf)pf.style.width=pct+'%';
+  const pl=document.getElementById('m-prog-label');if(pl)pl.textContent=done+' / '+tod.length;
+  // Task list
+  const pO={p1:0,p2:1,p3:2};
+  const pend=tod.filter(t=>!t.done).sort((a,b)=>pO[a.priority]-pO[b.priority]);
+  const doneL=tod.filter(t=>t.done);
+  const tl=document.getElementById('m-task-list');if(!tl)return;
+  const all=[...pend,...doneL];
+  tl.innerHTML=all.length?all.map(t=>{
+    const[pc,pi]=PMAP_MOB[t.priority]||PMAP_MOB.p2;
+    return `<div class="m-trow${t.done?' done':''}">
+      <div class="m-tcb${t.done?' chk':''}" onclick="mToggleTask('${t.id}')">✓</div>
+      <div style="flex:1;min-width:0">
+        <div class="m-ttl${t.done?' st':''}">${esc(t.title)}</div>
+        <div class="m-tmeta"><span class="m-tag ${pc}">${pi} ${t.priority==='p1'?'Alta':t.priority==='p2'?'Media':'Baja'}</span><span class="m-tag tcat" style="background:var(--acl);color:var(--ac)">${t.cat}</span>${t.time?`<span style="font-size:10px;color:var(--tx3);font-family:var(--mo)">⏰${t.time}</span>`:''}</div>
+      </div>
+    </div>`;
+  }).join(''):'<div class="m-empty">Sin tareas hoy.<br>Añade una arriba 👆</div>';
+  // Routines today
+  const td=new Date().getDay();
+  const todR=routines.filter(r=>parseInt(r.day)===td);
+  const rl=document.getElementById('m-routines-today');if(!rl)return;
+  const dl=document.getElementById('m-today-day');if(dl)dl.textContent=DF[td];
+  rl.innerHTML=todR.length?todR.map(r=>`<div class="m-rrow hi"><div class="m-rday">${DS[r.day]}</div><div><div class="m-rnm">${esc(r.n)}</div>${r.d?`<div class="m-rds">${esc(r.d)}</div>`:''}</div></div>`).join(''):'<div class="m-empty">Sin rutinas hoy.</div>';
+}
+
+function mAddQuick(){
+  const inp=document.getElementById('m-qi');const t=inp.value.trim();if(!t)return;
+  tasks.unshift({id:'t'+Date.now(),title:t,desc:'',priority:'p2',cat:'ops',time:'',duration:'',done:false,date:TODAY});
+  save('skk_tasks_v1',tasks);inp.value='';mRenderInicio();renderAll();toast('Tarea añadida ✓');
+}
+
+function mToggleTask(id){
+  const t=tasks.find(x=>x.id===id);if(!t)return;
+  t.done=!t.done;save('skk_tasks_v1',tasks);mRenderInicio();renderKPI();
+}
+
+function mRenderContactos(){
+  const el=document.getElementById('m-contact-list');if(!el)return;
+  const sorted=[...contacts].sort((a,b)=>b.id.localeCompare(a.id)).slice(0,15);
+  el.innerHTML=sorted.length?sorted.map(c=>`<div class="m-crow">
+    <div class="m-cav" style="background:${CONTACT_COLORS_MOB[c.type]||'#9ea4be'}">${c.name.charAt(0).toUpperCase()}</div>
+    <div style="flex:1;min-width:0">
+      <div class="m-cnm">${esc(c.name)}</div>
+      <div class="m-cdt">${CONTACT_ICONS_MOB[c.type]||'🔹'} ${c.type} · ${esc(c.notes||'Sin notas').slice(0,50)}</div>
+      <div style="font-size:10px;color:var(--tx3);margin-top:2px;font-family:var(--mo)">${c.date===TODAY?'Hoy':c.date} ${c.ts||''}</div>
+    </div>
+  </div>`).join(''):'<div class="m-empty">Sin contactos aún.</div>';
+}
+
+function mSaveContact(){
+  const n=document.getElementById('m-cf-n').value.trim();if(!n){alert('Nombre obligatorio');return;}
+  const c={id:'c'+Date.now(),name:n,type:document.getElementById('m-cf-t').value,cat:document.getElementById('m-cf-c').value,notes:document.getElementById('m-cf-no').value.trim(),date:TODAY,ts:new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})};
+  contacts.unshift(c);save('skk_contacts_v1',contacts);
+  document.getElementById('m-cf-n').value='';document.getElementById('m-cf-no').value='';
+  mRenderContactos();mRenderKPI();renderAll();toast('Contacto registrado ✓');
+}
+
+function mRenderPipeline(){
+  const el=document.getElementById('m-pipeline');if(!el)return;
+  const KANBAN_LABELS={interesado:'Interesado',contactado:'Contactado',visita:'Visita programada',matriculado:'Matriculado ✓',perdido:'Perdido'};
+  el.innerHTML=Object.keys(KANBAN_LABELS).map(status=>{
+    const sl=leads.filter(l=>l.status===status);
+    if(!sl.length&&status==='perdido')return'';
+    const color=KANBAN_COLORS[status];const bg=KANBAN_BGS[status];
+    return `<div style="margin-bottom:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div style="font-size:11px;font-weight:700;color:${color};text-transform:uppercase;letter-spacing:.06em">${KANBAN_LABELS[status]}</div>
+        <div style="background:${bg};color:${color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:var(--mo)">${sl.length}</div>
+      </div>
+      ${sl.length?sl.map(l=>`<div class="m-lead-card" style="border-left:3px solid ${color}">
+        <div class="m-lead-name">${esc(l.name)}</div>
+        <div class="m-lead-meta">${l.interest?'📚 '+esc(l.interest.slice(0,40)):''} ${l.tel?'· 📱'+l.tel:''}</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap">
+          ${Object.entries(KANBAN_LABELS).filter(([s])=>s!==status).map(([s,lb])=>`<button class="m-status-btn" style="background:${KANBAN_BGS[s]};color:${KANBAN_COLORS[s]}" onclick="moveLead('${l.id}','${s}');mRenderPipeline();mRenderKPI()">${lb.slice(0,12)}</button>`).join('')}
+          <button class="m-status-btn" style="background:var(--rel);color:var(--re)" onclick="if(confirm('¿Eliminar?')){leads=leads.filter(x=>x.id!=='${l.id}');save('skk_leads_v1',leads);mRenderPipeline();mRenderKPI();}">✕ Eliminar</button>
+        </div>
+      </div>`).join(''):'<div style="font-size:12px;color:var(--tx3);padding:8px 0">Sin leads aquí</div>'}
+    </div>`;
+  }).join('');
+}
+
+function mRenderProd(){
+  // Sync notas con desktop
+  const nd=document.getElementById('m-note-day');const nt=document.getElementById('m-note-tom');
+  if(nd)nd.value=prodV._noteDay||document.getElementById('note-day')?.value||'';
+  if(nt)nt.value=prodV._noteTom||document.getElementById('note-tom')?.value||'';
+  const renderGrid=(gid,metrics)=>{
+    const g=document.getElementById(gid);if(!g)return;g.innerHTML='';
+    metrics.forEach(m=>{
+      const v=prodV[m.id]||0;
+      const c=document.createElement('div');c.className='m-pc';
+      c.innerHTML=`<div class="m-pc-ic">${m.i}</div><div class="m-pc-val" id="mpv-${m.id}">${v}</div><div class="m-pc-lbl">${m.l}</div>
+        <div class="m-pc-ctrls"><button class="m-pc-btn" onclick="mAdjP('${m.id}',-1)">−</button><button class="m-pc-btn" onclick="mAdjP('${m.id}',1)">+</button></div>`;
+      g.appendChild(c);
+    });
+  };
+  renderGrid('m-prod-cap',MC);renderGrid('m-prod-ges',MG);
+}
+
+function mAdjP(id,d){
+  const n=Math.max(0,(prodV[id]||0)+d);prodV[id]=n;
+  const el=document.getElementById('mpv-'+id);if(el)el.textContent=n;
+  updM(id,n);asProd();mRenderKPI();
+}
+
+function mSaveDay(){
+  const nd=document.getElementById('m-note-day')?.value||'';
+  const nt=document.getElementById('m-note-tom')?.value||'';
+  // Sync a desktop
+  const dnd=document.getElementById('note-day');const dnt=document.getElementById('note-tom');
+  if(dnd)dnd.value=nd;if(dnt)dnt.value=nt;
+  saveDay();
+}
+
+function mRenderFinanciero(){
+  const el=document.getElementById('m-fin-cards');if(!el)return;
+  const COLORS={ac:'#4f6ef7',pu:'#8b5cf6',am:'#f59e0b',gr:'#22c55e'};
+  el.innerHTML=scenarios.map((sc,i)=>{
+    const ing=sc.alumnos*sc.precio;const cos=GASTOS_FIJOS+sc.variables;const res=ing-cos;
+    const margen=ing>0?Math.round(res/ing*100):0;
+    const color=COLORS[sc.color]||COLORS.ac;
+    const faltan=Math.max(0,sc.alumnos-alumni);
+    return `<div class="m-fin-card" style="border-top:3px solid ${color}">
+      <div class="m-fin-label" style="color:${color}">${sc.label}</div>
+      <div class="m-fin-row"><span style="color:var(--tx2)">Alumnos</span><strong style="font-family:var(--mo)">${sc.alumnos}</strong></div>
+      <div class="m-fin-row"><span style="color:var(--tx2)">Precio medio</span><strong style="font-family:var(--mo)">${sc.precio}€</strong></div>
+      <div class="m-fin-row"><span style="color:var(--tx2)">Ingresos</span><strong style="font-family:var(--mo)">${fmt(ing)}€</strong></div>
+      <div class="m-fin-row"><span style="color:var(--tx2)">Costes totales</span><strong style="font-family:var(--mo)">−${fmt(cos)}€</strong></div>
+      <div class="m-fin-row"><span style="font-weight:700;color:var(--tx)">Resultado</span><div class="m-fin-result" style="color:${res>=0?'var(--gr)':'var(--re)'}">${res>=0?'+':''}${fmt(Math.round(res))}€ <span style="font-size:12px">(${margen}%)</span></div></div>
+      <div style="margin-top:8px;padding:8px 10px;border-radius:var(--rs);background:${res>=0?'var(--grl)':'var(--rel)'};font-size:12px;color:${res>=0?'var(--gr)':'var(--re)'};font-weight:500">
+        ${sc.alumnos>alumni?`🎯 Faltan <strong>+${faltan} alumnos</strong> respecto a hoy`:`✅ Situación actual · ${alumni} alumnos`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function mUpdateDriveBtn(){
+  const btn=document.getElementById('m-drive-btn');if(!btn)return;
+  if(driveToken){btn.textContent='☁️ Conectado';btn.className='m-drive-btn connected';}
+  else{btn.textContent='☁️ Drive';btn.className='m-drive-btn';}
+}
+
 // ─── INIT ───
 document.addEventListener('DOMContentLoaded',()=>{
   // Modal close on backdrop click
@@ -1685,18 +2095,22 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape')document.querySelectorAll('.mo.open').forEach(m=>m.classList.remove('open'));
   });
-  // Notes autosave
+  // Notes autosave desktop
   ['note-day','note-tom'].forEach(id=>{
     const el=document.getElementById(id);if(el)el.addEventListener('input',asProd);
   });
-  // Quick inputs enter key
+  // Quick inputs enter key desktop
   ['qi-r','qi-t'].forEach(id=>{
     const el=document.getElementById(id);
     if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')addQuick(id);});
   });
+  // Quick input enter key móvil
+  const mqi=document.getElementById('m-qi');
+  if(mqi)mqi.addEventListener('keydown',e=>{if(e.key==='Enter')mAddQuick();});
   // Load and render
   loadProd();
   renderAll();
+  mRenderAll();
 });
 </script>
 </body>
