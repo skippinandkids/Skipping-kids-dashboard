@@ -780,7 +780,7 @@ let dismissedAlerts=JSON.parse(localStorage.getItem('skk_dismissed_alerts')||'[]
 let dragLeadId=null;
 
 // SAVE HELPERS
-const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const save=(k,v)=>{localStorage.setItem(k,JSON.stringify(v));if(typeof scheduleDriveSync==='function')scheduleDriveSync();};
 function saveAll(){save('skk_tasks_v1',tasks);save('skk_routines_v1',routines);save('skk_leads_v1',leads);save('skk_contacts_v1',contacts);save('skk_journal_v1',journal);localStorage.setItem('skk_alumni',alumni);localStorage.setItem('skk_alumni_meta',alumniMeta);}
 
 // DATE
@@ -1659,12 +1659,8 @@ async function driveSave(silent=false){
   } catch(e){console.error('Drive save error:',e);}
 }
 
-// Sobreescribir la función save para que también sincronice con Drive
-const _saveOriginal=save;
 let driveSyncTimer;
-function save(k,v){
-  _saveOriginal(k,v);
-  // Sync a Drive con debounce de 3 segundos
+function scheduleDriveSync(){
   if(driveToken){
     clearTimeout(driveSyncTimer);
     driveSyncTimer=setTimeout(()=>driveSave(true),3000);
