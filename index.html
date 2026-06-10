@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -442,6 +443,7 @@ body{font-family:var(--fn);background:var(--bg);color:var(--tx);min-height:100vh
         🔔<div class="alert-dot" id="alert-dot" style="display:none"></div>
       </div>
       <button class="btn btn-s" onclick="exportCSV()">↓ CSV</button>
+      <button class="btn btn-s" id="drive-btn" onclick="handleDriveBtn()" style="gap:5px">☁️ Conectar Drive</button>
     </div>
   </div>
 
@@ -824,7 +826,6 @@ function addQuick(inputId){
   tasks.unshift({id:'t'+Date.now(),title:t,desc:'',priority:'p2',cat:'ops',time:'',duration:'',done:false,date:TODAY});
   save('skk_tasks_v1',tasks);inp.value='';renderAll();toast('Tarea añadida ✓');
 }
-['qi-r','qi-t'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')addQuick(id);});});
 
 function openMoTask(id=null){
   editTId=id;const t=id?tasks.find(x=>x.id===id):null;
@@ -1342,16 +1343,11 @@ function nav(id,btn){
 // ─── MODAL HELPERS ───
 function openMo(id){document.getElementById(id).classList.add('open');}
 function closeMo(id){document.getElementById(id).classList.remove('open');}
-document.querySelectorAll('.mo').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.mo.open').forEach(m=>m.classList.remove('open'));});
 
 // ─── TOAST ───
 let tT;
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),2800);}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-// ─── NOTES AUTOSAVE ───
-['note-day','note-tom'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',asProd);});
 
 // ─── RENDER ALL ───
 function renderAll(){
@@ -1516,8 +1512,196 @@ function renderCal(){
   grid.innerHTML=html;
 }
 
+// ═══════════════════════════════════════════════
+// GOOGLE DRIVE SYNC
+// ═══════════════════════════════════════════════
+const GOOGLE_CLIENT_ID='623112811811-ct87atq2j89k6q29qtfudm91s9gdfbmj.apps.googleusercontent.com';
+const DRIVE_FILE='skipping-kids-data.json';
+const DRIVE_SCOPE='https://www.googleapis.com/auth/drive.appdata';
+
+let driveToken=null;
+let driveFileId=localStorage.getItem('skk_drive_file_id')||null;
+let tokenClient=null;
+let driveReady=false;
+
+function initDrive(){
+  if(!GOOGLE_CLIENT_ID||typeof google==='undefined'||!google.accounts)return;
+  tokenClient=google.accounts.oauth2.initTokenClient({
+    client_id:GOOGLE_CLIENT_ID,
+    scope:DRIVE_SCOPE,
+    callback:async(resp)=>{
+      if(resp.error){toast('Error al conectar con Google Drive');return;}
+      driveToken=resp.access_token;
+      updateDriveBtn();
+      toast('✓ Conectado a Google Drive');
+      await driveLoad();
+    }
+  });
+  driveReady=true;
+  // Si tenía token previo en sesión, intentar auto-reconectar silenciosamente
+  const savedToken=sessionStorage.getItem('skk_drive_token');
+  if(savedToken){driveToken=savedToken;updateDriveBtn();driveLoad();}
+}
+
+function handleDriveBtn(){
+  if(driveToken){driveSignOut();return;}
+  if(!driveReady){toast('Espera un momento e inténtalo de nuevo');return;}
+  tokenClient.requestAccessToken();
+}
+
+function driveSignOut(){
+  if(driveToken)google.accounts.oauth2.revoke(driveToken,()=>{});
+  driveToken=null;sessionStorage.removeItem('skk_drive_token');
+  updateDriveBtn();toast('Desconectado de Google Drive');
+}
+
+function updateDriveBtn(){
+  const btn=document.getElementById('drive-btn');if(!btn)return;
+  if(driveToken){
+    btn.textContent='☁️ Drive conectado';
+    btn.style.background='var(--grl)';btn.style.color='var(--gr)';btn.style.borderColor='var(--gr)';
+    sessionStorage.setItem('skk_drive_token',driveToken);
+  } else {
+    btn.textContent='☁️ Conectar Drive';
+    btn.style.background='';btn.style.color='';btn.style.borderColor='';
+  }
+}
+
+// Construir objeto con todos los datos del dashboard
+function getAllData(){
+  return {
+    tasks,routines,leads,contacts,journal,
+    alumni,alumniMeta,scenarios,
+    prodV,prodH,
+    calEvents:JSON.parse(localStorage.getItem('skk_cal_v1')||'[]'),
+    dismissedAlerts,
+    savedAt:new Date().toISOString()
+  };
+}
+
+// Cargar todos los datos desde un objeto guardado
+function setAllData(d){
+  if(!d)return;
+  if(d.tasks)tasks=d.tasks;
+  if(d.routines)routines=d.routines;
+  if(d.leads)leads=d.leads;
+  if(d.contacts)contacts=d.contacts;
+  if(d.journal)journal=d.journal;
+  if(d.alumni!=null)alumni=d.alumni;
+  if(d.alumniMeta!=null)alumniMeta=d.alumniMeta;
+  if(d.scenarios)scenarios=d.scenarios;
+  if(d.prodV)prodV=d.prodV;
+  if(d.prodH)prodH=d.prodH;
+  if(d.calEvents)localStorage.setItem('skk_cal_v1',JSON.stringify(d.calEvents));
+  if(d.dismissedAlerts)dismissedAlerts=d.dismissedAlerts;
+  // Guardar también en localStorage como backup
+  save('skk_tasks_v1',tasks);save('skk_routines_v1',routines);
+  save('skk_leads_v1',leads);save('skk_contacts_v1',contacts);
+  save('skk_journal_v1',journal);save('skk_scenarios_v1',scenarios);
+  save('skk_dash_history',prodH);save('skk_dismissed_alerts',dismissedAlerts);
+  localStorage.setItem('skk_alumni',alumni);localStorage.setItem('skk_alumni_meta',alumniMeta);
+}
+
+async function driveLoad(){
+  if(!driveToken)return;
+  try{
+    // Buscar archivo existente
+    const res=await fetch(
+      `https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='${DRIVE_FILE}'&fields=files(id,name,modifiedTime)`,
+      {headers:{Authorization:'Bearer '+driveToken}}
+    );
+    const data=await res.json();
+    if(data.files&&data.files.length>0){
+      driveFileId=data.files[0].id;
+      localStorage.setItem('skk_drive_file_id',driveFileId);
+      // Descargar contenido
+      const fileRes=await fetch(
+        `https://www.googleapis.com/drive/v3/files/${driveFileId}?alt=media`,
+        {headers:{Authorization:'Bearer '+driveToken}}
+      );
+      const cloudData=await fileRes.json();
+      setAllData(cloudData);
+      renderAll();
+      toast('✓ Datos cargados desde Google Drive');
+    } else {
+      // Primera vez — subir datos actuales
+      await driveSave(true);
+      toast('✓ Datos guardados en Drive por primera vez');
+    }
+  } catch(e){toast('Error al cargar Drive: '+e.message);console.error(e);}
+}
+
+async function driveSave(silent=false){
+  if(!driveToken)return;
+  try{
+    const blob=new Blob([JSON.stringify(getAllData())],{type:'application/json'});
+    if(driveFileId){
+      // Actualizar archivo existente
+      await fetch(
+        `https://www.googleapis.com/upload/drive/v3/files/${driveFileId}?uploadType=media`,
+        {method:'PATCH',headers:{Authorization:'Bearer '+driveToken,'Content-Type':'application/json'},body:blob}
+      );
+    } else {
+      // Crear archivo nuevo en appDataFolder
+      const meta={name:DRIVE_FILE,parents:['appDataFolder']};
+      const form=new FormData();
+      form.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));
+      form.append('file',blob);
+      const res=await fetch(
+        'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
+        {method:'POST',headers:{Authorization:'Bearer '+driveToken},body:form}
+      );
+      const d=await res.json();
+      driveFileId=d.id;
+      localStorage.setItem('skk_drive_file_id',driveFileId);
+    }
+    if(!silent)toast('☁️ Guardado en Drive ✓');
+  } catch(e){console.error('Drive save error:',e);}
+}
+
+// Sobreescribir la función save para que también sincronice con Drive
+const _saveOriginal=save;
+let driveSyncTimer;
+function save(k,v){
+  _saveOriginal(k,v);
+  // Sync a Drive con debounce de 3 segundos
+  if(driveToken){
+    clearTimeout(driveSyncTimer);
+    driveSyncTimer=setTimeout(()=>driveSave(true),3000);
+  }
+}
+
+// Init Drive cuando cargue la librería de Google
+const driveInitInterval=setInterval(()=>{
+  if(typeof google!=='undefined'&&google.accounts){
+    initDrive();clearInterval(driveInitInterval);
+  }
+},400);
+setTimeout(()=>clearInterval(driveInitInterval),10000);
+
 // ─── INIT ───
-loadProd();renderAll();
+document.addEventListener('DOMContentLoaded',()=>{
+  // Modal close on backdrop click
+  document.querySelectorAll('.mo').forEach(m=>{
+    m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});
+  });
+  // Escape key
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape')document.querySelectorAll('.mo.open').forEach(m=>m.classList.remove('open'));
+  });
+  // Notes autosave
+  ['note-day','note-tom'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.addEventListener('input',asProd);
+  });
+  // Quick inputs enter key
+  ['qi-r','qi-t'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')addQuick(id);});
+  });
+  // Load and render
+  loadProd();
+  renderAll();
+});
 </script>
 </body>
 </html>
